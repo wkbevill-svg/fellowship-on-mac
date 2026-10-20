@@ -34,7 +34,7 @@ In the launcher's default mouse mode the Mac pointer is the visible cursor and t
 moving while the game put its cursor back on release, so the two ended up apart by the length of the drag: hover
 and clicks landed somewhere else until the launcher re-synced after 1.5 s without motion.
 
-The patch (`host/launcher/Sources/steamac-vm/Window.swift`, ~45 lines):
+The patch (`host/launcher/Sources/steamac-vm/Window.swift`, ~60 lines):
 
 - while a game has focus and the right button is held, the Mac pointer stays at the press point and raw motion goes
   to the game, the same way captured mode works (`CGAssociateMouseAndMouseCursorPosition(0)`, cursor hidden);
@@ -42,6 +42,9 @@ The patch (`host/launcher/Sources/steamac-vm/Window.swift`, ~45 lines):
 - the game hides its cursor only after a short drag and restores it *there*, so after a drag the next mouse motion
   (from 0.15 s after the release) re-syncs the game's cursor to the Mac pointer, using the launcher's existing
   re-anchor (corner and back, which can briefly hover the top-left UI);
+- while the right button is held, other buttons (left+right to run, abilities) and the wheel never move or re-sync the
+  game's cursor, and a right press never triggers the re-sync's big corner jump: the game would read that jump as
+  camera motion and point the camera at the sky (fixed in v1.1);
 - quick right-clicks without motion are unchanged; left button, Steam's UI and other games' captured mode too;
 - off switch: `defaults write es.fxgam.steamac rightDragMouseLook -bool false`.
 

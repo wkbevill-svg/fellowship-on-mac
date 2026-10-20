@@ -29,8 +29,8 @@ ENT="$HERE/steamac-vm.entitlements"
 ORIG_EXE_SHA=6a0d1401f7fde2eb0819bc0731de913ee07bc04ca32a53f4903d525a916ffd9f
 ORIG_LIB_SHA=9a1ef6a015302660b8a7cf81502cd557bab6422ec5ed08d9b3702869455c6a61
 # Patched launcher binary as published in the release (unsigned beyond the linker's ad-hoc signature)
-PATCHED_EXE_SHA=490fac3296f314e7cc25876545bad77b08a5d88b650907f873a6672db40063d7
-PATCHED_EXE_URL=${PATCHED_EXE_URL:-https://github.com/wkbevill-svg/fellowship-on-mac/releases/download/v1.0/steamac-vm-1.9-eac.1-fellowship}
+PATCHED_EXE_SHA=2794dcb5ce2a461ccb1fee5076f93cca581a73ac58532a129eceb9254418dd33
+PATCHED_EXE_URL=${PATCHED_EXE_URL:-https://github.com/wkbevill-svg/fellowship-on-mac/releases/download/v1.1/steamac-vm-1.9-eac.1-fellowship}
 LIB_OFF=$((0x3950))   # add x0,x20,x21 (80 02 15 8b) -> b 0x399c (13 00 00 14)
 
 sha() { shasum -a 256 "$1" | cut -d' ' -f1; }
@@ -73,11 +73,16 @@ fi
 
 # 1. Patched launcher binary: a local build (./build-launcher.sh) wins over the download.
 NEW="$HERE/steamac-vm.patched"
+# v1.0 of this script saved its download there; that older build is not a local build.
+[[ -f "$NEW" && $(sha "$NEW") == 490fac3296f314e7cc25876545bad77b08a5d88b650907f873a6672db40063d7 ]] && rm -f "$NEW"
 if [[ ! -f "$NEW" ]]; then
-  echo "downloading the patched launcher binary"
-  curl -fL --progress-bar -o "$NEW.part" "$PATCHED_EXE_URL"
-  [[ $(sha "$NEW.part") == $PATCHED_EXE_SHA ]] || { rm -f "$NEW.part"; echo "download does not match the published SHA-256"; exit 1; }
-  mv "$NEW.part" "$NEW"
+  NEW="$BACKUP/../steamac-vm-${PATCHED_EXE_SHA[1,12]}"
+  if [[ ! -f "$NEW" || $(sha "$NEW") != $PATCHED_EXE_SHA ]]; then
+    echo "downloading the patched launcher binary"
+    curl -fL --progress-bar -o "$NEW.part" "$PATCHED_EXE_URL"
+    [[ $(sha "$NEW.part") == $PATCHED_EXE_SHA ]] || { rm -f "$NEW.part"; echo "download does not match the published SHA-256"; exit 1; }
+    mv "$NEW.part" "$NEW"
+  fi
 fi
 grep -aq rightDragMouseLook "$NEW" || { echo "$NEW does not contain the right-drag fix"; exit 1; }
 cp "$NEW" "$EXE.new" && mv -f "$EXE.new" "$EXE"
