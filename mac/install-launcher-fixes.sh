@@ -52,7 +52,7 @@ status)
 restore)
   running && { echo "Quit FX Steam Launcher first."; exit 1; }
   [[ -f "$BACKUP/steamac-vm" && -f "$BACKUP/libwmtr_host.dylib" ]] || { echo "no backup in $BACKUP"; exit 1; }
-  cp "$BACKUP/steamac-vm" "$EXE"; cp "$BACKUP/libwmtr_host.dylib" "$LIB"
+  cp "$BACKUP/steamac-vm" "$EXE"; chmod 755 "$EXE"; cp "$BACKUP/libwmtr_host.dylib" "$LIB"
   resign
   echo "original launcher code restored (re-signed). For a byte-identical app, reinstall it from the 1.9-eac.1 DMG."
   rm -rf "$BACKUP"; exit 0 ;;
@@ -85,7 +85,8 @@ if [[ ! -f "$NEW" ]]; then
   fi
 fi
 grep -aq rightDragMouseLook "$NEW" || { echo "$NEW does not contain the right-drag fix"; exit 1; }
-cp "$NEW" "$EXE.new" && mv -f "$EXE.new" "$EXE"
+cp "$NEW" "$EXE.new" && chmod 755 "$EXE.new" && mv -f "$EXE.new" "$EXE"   # a download has no executable bit
+[[ -x "$EXE" ]] || { echo "the launcher binary is not executable: $EXE"; exit 1; }
 echo "installed the right-drag mouse-look launcher"
 
 # 2. wmtr fix, applied to the backed-up original.

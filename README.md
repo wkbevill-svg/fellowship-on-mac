@@ -41,6 +41,9 @@ Then, in the launcher's **Settings** (Cmd+,):
 
 - **Advanced > Graphics path: DXMT**
 - **Advanced > Enable SSH: on** (the scripts below use it to install FEX in the VM)
+- **Mouse > "Capture the mouse in games": off.** With it on, clicking in the game captures the mouse and you won't
+  see a pointer at all. The mouse fix below needs it off. (Mouse menu > "Auto-Capture Mouse in Games" is the same
+  switch; Ctrl+Option releases a captured mouse.)
 
 Restart the VM when it asks.
 
@@ -94,6 +97,13 @@ Tips:
 - Launcher: quit it, then `./mac/install-launcher-fixes.sh restore`
 
 ## Troubleshooting
+
+- **No mouse pointer in the game:** the mouse is captured. Press Ctrl+Option to release it, and turn off
+  Settings > Mouse > "Capture the mouse in games" (also check Mouse menu > "Capture Mouse in This Game").
+- **FX Steam Launcher won't open after running the launcher fix:** the first version of the script (before
+  2026-10-20) left the launcher binary without its executable flag. `git pull` and run
+  `./mac/install-launcher-fixes.sh` again, or fix it directly:
+  `chmod +x "$HOME/Applications/FX Steam Launcher.app/Contents/MacOS/steamac-vm"` (or `/Applications/...`).
 
 - **`./mac/vm.sh` says no SSH:** turn on Settings > Advanced > Enable SSH, restart the VM.
 - **EAC error at launch:** check that the launch options are pasted as one line and that Proton Experimental is
