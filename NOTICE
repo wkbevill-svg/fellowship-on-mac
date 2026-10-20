@@ -1,0 +1,25 @@
+fellowship-on-mac
+
+Scripts, docs and patches in this repository: Apache License 2.0 (LICENSE).
+Written with the help of an AI assistant (Claude). Not affiliated with any of the projects below.
+
+This work builds on, modifies or redistributes parts of:
+
+- FX Steam Launcher (steamac), Copyright 2026 FX GAMES FZ LLC, Apache-2.0 — https://github.com/fxgl/steamac
+  and StonkGuy's fork with Easy Anti-Cheat support, v1.9-eac.1 — https://github.com/StonkGuy/steamac
+  * patches/launcher-right-drag-mouselook.patch modifies host/launcher/Sources/steamac-vm/Window.swift.
+  * The release asset steamac-vm-1.9-eac.1-fellowship is that launcher binary built from tag v1.9-eac.1 with the
+    patch above (Apache-2.0).
+  * mac/install-launcher-fixes.sh changes one instruction of the launcher's libwmtr_host.dylib (wmtr, Apache-2.0)
+    on your machine; the library itself is not redistributed here.
+  * mac/steamac-vm.entitlements is copied from host/launcher/steamac-vm.entitlements.
+  * vm/install-fex.sh follows fex-eac/install-fex-tool.sh and fex-eac/build-fex.sh.
+- libkrun, Apache-2.0 — https://github.com/containers/libkrun
+  * mac/libkrun-include/ are libkrun's public headers as patched by steamac (needed to build the launcher).
+- FEX-Emu, MIT, Copyright (c) 2019 Ryan Houdek — https://github.com/FEX-Emu/FEX
+  and StonkGuy's EAC patches, tag eac-2610.3 — https://github.com/StonkGuy/FEX/tree/eac-2610.3
+  * The release asset fex-eac-2610.3-arm64.tar.gz is that tag built unmodified; it contains FEX's LICENSE
+    (LICENSE.FEX) and SOURCE.txt. Bundled third-party code keeps its own licenses (External/ in the source).
+
+FX Steam Launcher, SteamOS, Proton, Wine, DXMT, Easy Anti-Cheat and Fellowship are not included and are the
+property of their respective owners.
