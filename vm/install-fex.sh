@@ -16,7 +16,7 @@
 set -eu
 
 TAG=eac-2610.3
-TAG_SHA=938eedfcd79eb00e86561fbdf4933770766f0ba9
+TAG_SHA=39107ddbb1f1f9ad3778a5aba65f9947cd7e84ce   # eac-2610.3 after StonkGuy re-authored the fork (same source tree as the earlier 938eedf)
 BUNDLE_URL=${BUNDLE_URL:-https://github.com/wkbevill-svg/fellowship-on-mac/releases/download/v1.0/fex-eac-2610.3-arm64.tar.gz}
 BUNDLE_SHA=${BUNDLE_SHA:-17e685284be2db7d57d9fce0d0c66550875e0bb687dec90e49e15d8aa1981aee}
 

@@ -12,7 +12,7 @@ launcher problems make it hard to play. This repo covers those, and nothing else
 
 FX Steam Launcher 1.9-eac.1 installs StonkGuy's patched FEX at tag `eac-2610.2`. In my earlier testing that build
 stopped Fellowship's anti-cheat start with EAC "Unexpected error (#2)"; the fix for it (StonkGuy/FEX PR #17, ptrace
-and alignment-fault stops) landed after `eac-2610.2`. StonkGuy's newer tag **`eac-2610.3`** (`938eedf`) includes it
+and alignment-fault stops) landed after `eac-2610.2`. StonkGuy's newer tag **`eac-2610.3`** (`39107dd`; `938eedf` before the fork's history was re-authored, same source) includes it
 and more; tested unmodified: EAC result 301 ("successfully loaded in-game"), title screen, hero select, town, logout.
 
 `vm/install-fex.sh` either downloads the prebuilt bundle from this repo's release (that tag, built inside the

@@ -16,6 +16,10 @@ before running anything. [docs/HOW-IT-WORKS.md](docs/HOW-IT-WORKS.md) explains e
 Not affiliated with Chief Rebel, Easy Anti-Cheat/Epic, Valve, FX Games, StonkGuy or FEX-Emu. Running an anti-cheat
 game in an emulator is not officially supported. I haven't had problems, but use it at your own risk.
 
+**Security note about DXMT:** with the DXMT graphics path on, programs inside SteamOS can run code on your Mac with
+your user's rights (the Mac-side Metal executor trusts the VM; upstream FX Steam Launcher says the same about its
+DXMT option). Only run games you trust with it.
+
 ## What you need
 
 - An Apple Silicon Mac (tested: M3 Max, macOS 27). Other M-series Macs should work but are untested.
